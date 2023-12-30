@@ -9,47 +9,34 @@ Home:addLabel("AUTO FARM RAID")
 
 local isToggleOn = false
 
-Home:addToggle("AUTO JOIN RAID", function(value)
+Home:addToggle("AUTO RAID", function(value)
     isToggleOn = value
     print("Toggle is now:", isToggleOn)
     
     if isToggleOn then
         -- Start the loop
         while isToggleOn do
-            local args = {
+                        local args = {
                 [1] = {
                     [1] = {
-                        [1] = "",
+                        [1] = "/3",
                         [2] = "Raid",
                         [3] = "Join"
                     }
                 }
             }
             game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
-            wait()  -- Adjust the wait time as needed
-        end
-    end
-end)
 
-local isToggleOn = false
-
-Home:addToggle("CLEAR RAID", function(value)
-    isToggleOn = value
-    print("Toggle is now:", isToggleOn)
-    
-    if isToggleOn then
-        -- Start the loop
-        while isToggleOn do
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.8562, 2832.1416, 7120.4751, -0.658581197, -4.80182862e-08, -0.752509654, 8.59724825e-09, 1, -7.13349948e-08, 0.752509654, -5.34494013e-08, -0.658581197)
-            wait(2)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.40747, 2832.14209, 7178.14502, 0.843310177, -3.73331126e-08, 0.537427127, 1.83641973e-08, 1, 4.06499723e-08, -0.537427127, -2.44111185e-08, 0.843310177)
-            wait(2)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.40747, 2832.14209, 7178.14502, 0.843310177, -9.21734653e-08, 0.537427127, 4.58996112e-08, 1, 9.94848435e-08, -0.537427127, -5.92288849e-08, 0.843310177)
-            wait(2)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2558.26025, 2832.14062, 7062.3667, -0.969921112, -4.31621849e-08, -0.243419498, -3.23128297e-08, 1, -4.85634502e-08, 0.243419498, -3.92371398e-08, -0.969921112)
-            wait(2)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2513.5813, 2832.14185, 7123.8335, -0.866714835, 2.9712405e-08, -0.498804003, 1.2799406e-08, 1, 3.73272258e-08, 0.498804003, 2.59676654e-08, -0.866714835)
-            wait(5)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.52246, 2841.14478, 7122.82373, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            wait(1.1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.37354, 2833.64478, 7060.31689, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            wait(1.1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2511.32227, 2833.64478, 7114.14844, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            wait(1.1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2608.8147, 2833.64478, 7116.77979, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            wait(1.1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2560.81763, 2833.64478, 7179.78564, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            wait(1)
             wait()  -- Adjust the wait time as needed
         end
     end
