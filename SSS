@@ -16,82 +16,112 @@ Home:addToggle("AUTO JOIN RAID", function(value)
     if isToggleOn then
         -- Start the loop
         while isToggleOn do
+                    -- Replace "_ENEMIES", "Raid", and "RaidPortal" with the actual names of the folders and model
+        local enemiesFolderName = "_ENEMIES"
+        local raidFolderName = "Raid"
+        local raidPortalModelName = "RaidPortal"
+
+        -- Get the Workspace and Players service
+        local workspace = game:GetService("Workspace")
+        local players = game:GetService("Players")
+
+        -- Function to teleport a player to a specific position
+        local function teleportPlayer(player, position)
+            local character = player.Character
+            if character then
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    humanoid.Parent = nil
+                    character:SetPrimaryPartCFrame(CFrame.new(position))
+                    humanoid.Parent = character
+                end
+            end
+        end
+
+        -- Function to check if the player is in the RaidPortal
+        local function isInRaidPortal(player)
+            local raidFolder = workspace:FindFirstChild(enemiesFolderName):FindFirstChild(raidFolderName)
+            local raidPortal = raidFolder and raidFolder:FindFirstChild(raidPortalModelName)
+
+            if raidPortal and raidPortal:IsA("Model") and raidPortal.PrimaryPart then
+                local portalPosition = raidPortal:GetPrimaryPartCFrame().Position
+                local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
+                return playerPosition and (playerPosition - portalPosition).Magnitude < 5  -- Adjust the threshold as needed
+            end
+
+            return false
+        end
+
+        -- Function to teleport to the RaidPortal model
+        local function teleportToRaidPortal(player)
+            local enemiesFolder = workspace:FindFirstChild(enemiesFolderName)
+
+            if enemiesFolder and enemiesFolder:IsA("Folder") then
+                local raidFolder = enemiesFolder:FindFirstChild(raidFolderName)
+
+                if raidFolder and raidFolder:IsA("Folder") then
+                    local raidPortal = raidFolder:FindFirstChild(raidPortalModelName)
+
+                    if raidPortal and raidPortal:IsA("Model") and raidPortal.PrimaryPart then
+                        local portalPosition = raidPortal:GetPrimaryPartCFrame().Position
+                        teleportPlayer(player, portalPosition)
+                    else
+                        print("RaidPortal model not found in the Raid folder.")
+                    end
+                else
+                    print("Raid folder not found inside Enemies.")
+                end
+            else
+                print("Enemies folder not found.")
+            end
+        end
+
+        -- Function to join the raid
+        local function joinRaid()
             local args = {
                 [1] = {
                     [1] = {
-                        [1] = "",
+                        [1] = "/3",
                         [2] = "Raid",
                         [3] = "Join"
                     }
                 }
             }
             game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
-
-            local folderName = "_INTERACTIONS"
-            local modelName = "RaidPortal"
-
-            -- Get the Workspace and Players service
-            local workspace = game:GetService("Workspace")
-            local players = game:GetService("Players")
-
-            -- Function to teleport a player to a specific position
-            local function teleportPlayer(player, position)
-                local character = player.Character
-                if character then
-                    local humanoid = character:FindFirstChildOfClass("Humanoid")
-                    if humanoid then
-                        humanoid.Parent = nil
-                        character:SetPrimaryPartCFrame(CFrame.new(position))
-                        humanoid.Parent = character
-                    end
-                end
-            end
-
-            -- Function to find and teleport to the RaidPortal model
-            local function teleportToRaidPortal(player)
-                local interactionsFolder = workspace:FindFirstChild(folderName)
-
-                if interactionsFolder and interactionsFolder:IsA("Folder") then
-                    local raidPortal = interactionsFolder:FindFirstChild(modelName)
-
-                    if raidPortal and raidPortal:IsA("Model") and raidPortal.PrimaryPart then
-                        local portalPosition = raidPortal:GetPrimaryPartCFrame().Position
-                        teleportPlayer(player, portalPosition)
-                    else
-                        print("RaidPortal model not found.")
-                    end
-                else
-                    print("Interactions folder not found.")
-                end
-            end
-
-            -- Teleport the local player when the script runs
-            local player = players.LocalPlayer
-            teleportToRaidPortal(player)
-            wait()  -- Adjust the wait time as needed
         end
-    end
-end)
 
-local isToggleOn = false
+        -- Function to teleport to the Raid models
+        local function teleportToRaidModels(player)
+            local raidFolder = workspace:FindFirstChild(enemiesFolderName):FindFirstChild(raidFolderName)
 
-Home:addToggle("CLEAR RAID", function(value)
-    isToggleOn = value
-    print("Toggle is now:", isToggleOn)
-    
-    if isToggleOn then
-        -- Start the loop
-        while isToggleOn do
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.52246, 2841.14478, 7122.82373, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.37354, 2833.64478, 7060.31689, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2511.32227, 2833.64478, 7114.14844, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2608.8147, 2833.64478, 7116.77979, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2560.81763, 2833.64478, 7179.78564, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1)
+            if raidFolder and raidFolder:IsA("Folder") then
+                -- Add logic here to teleport to specific models inside the Raid folder
+                -- For example, you can iterate through the raidFolder:GetChildren() and teleport to each model
+                -- Adjust this part based on your game's structure
+                for _, model in pairs(raidFolder:GetChildren()) do
+                    if model:IsA("Model") and model.PrimaryPart then
+                        local modelPosition = model:GetPrimaryPartCFrame().Position
+                        teleportPlayer(player, modelPosition)
+                        wait(1)  -- Adjust the wait time between teleporting to different models
+                    end
+                end
+            else
+                print("Raid folder not found inside Enemies.")
+            end
+        end
+
+        -- Main function to perform the actions in order
+        local function performRaidActions(player)
+            teleportToRaidPortal(player)
+            wait(1)  -- Adjust the wait time between teleporting to the RaidPortal and executing the join function
+            joinRaid()
+            wait(1)  -- Adjust the wait time between executing the join function and teleporting to the Raid models
+            teleportToRaidModels(player)
+        end
+
+        -- Teleport the local player to the RaidPortal and perform other actions
+        local player = players.LocalPlayer
+        performRaidActions(player)
             wait()  -- Adjust the wait time as needed
         end
     end
