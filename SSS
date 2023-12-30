@@ -96,6 +96,26 @@ local function teleportToRaidPortal(player)
 end
 
 -- Toggle variable
+local isTeleportToggleOn = false
+
+-- Function to handle toggle changes
+local function handleTeleportToggle(value)
+    isTeleportToggleOn = value
+    print("Teleport Toggle is now:", isTeleportToggleOn)
+
+    if isTeleportToggleOn then
+        -- Start the loop when the toggle is on
+        while isTeleportToggleOn do
+            teleportToRaidPortal(players.LocalPlayer)
+            wait()
+        end
+    end
+end
+
+-- Call the handleTeleportToggle function to start the loop
+handleTeleportToggle(true)  -- Adjust the argument based on whether you want the toggle to start as on or off
+
+-- Toggle variable
 local isToggleOn = false
 
 -- Function to handle toggle changes
