@@ -7,18 +7,28 @@ local Home = UI:addPage("AUTO RAID",1,true,6)
 
 Home:addLabel("AUTO FARM RAID")
 
-Home:addButton("TELEPORT TO RAID",function()
-    local args = {
-        [1] = {
-            [1] = {
-                [1] = "",
-                [2] = "Raid",
-                [3] = "Join"
-            }
-        }
-    }
+local isToggleOn = false
+
+Home:addToggle("AUTO JOIN RAID", function(value)
+    isToggleOn = value
+    print("Toggle is now:", isToggleOn)
     
-    game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
+    if isToggleOn then
+        -- Start the loop
+        while isToggleOn do
+            local args = {
+                [1] = {
+                    [1] = {
+                        [1] = "",
+                        [2] = "Raid",
+                        [3] = "Join"
+                    }
+                }
+            }
+            game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
+            wait()  -- Adjust the wait time as needed
+        end
+    end
 end)
 
 local isToggleOn = false
