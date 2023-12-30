@@ -57,7 +57,7 @@ Home:addToggle("AUTO JOIN RAID", function(value)
             -- Teleport the local player when the script runs
             local player = players.LocalPlayer
             teleportToRaidPortal(player)
-            wait(2)
+            wait(15)
 
             local args = {
                 [1] = {
@@ -69,18 +69,19 @@ Home:addToggle("AUTO JOIN RAID", function(value)
                 }
             }
             game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
-            wait(9)
+            wait(10)
+
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.52246, 2841.14478, 7122.82373, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
+            wait(15)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2559.37354, 2833.64478, 7060.31689, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
+            wait(15)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2511.32227, 2833.64478, 7114.14844, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
+            wait(15)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2608.8147, 2833.64478, 7116.77979, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1.1)
+            wait(15)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2560.81763, 2833.64478, 7179.78564, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-            wait(1)
-            wait(4)  -- Adjust the wait time as needed
+            wait(15)
+            wait(15)  -- Adjust the wait time as needed
         end
     end
 end)
