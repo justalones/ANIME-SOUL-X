@@ -57,7 +57,7 @@ Home:addToggle("AUTO JOIN RAID", function(value)
             -- Teleport the local player when the script runs
             local player = players.LocalPlayer
             teleportToRaidPortal(player)
-            wait(0.9)
+            wait(2)
 
             local args = {
                 [1] = {
@@ -80,7 +80,7 @@ Home:addToggle("AUTO JOIN RAID", function(value)
             wait(1.1)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2560.81763, 2833.64478, 7179.78564, 1, 0, 0, 0, 1, 0, 0, 0, 1)
             wait(1)
-            wait()  -- Adjust the wait time as needed
+            wait(4)  -- Adjust the wait time as needed
         end
     end
 end)
